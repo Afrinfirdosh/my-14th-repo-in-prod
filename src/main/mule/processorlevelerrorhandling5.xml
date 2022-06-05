@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a9711e51-958f-4de7-b79d-7dbc4fabdc96" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="processorlevelerrorhandling5Flow" doc:id="4a353234-53b4-447b-a3d8-66e4c9a2a349" >
+		<http:listener doc:name="Listener" doc:id="1cc3db6e-97de-4e94-a089-df17b64ea29b" config-ref="HTTP_Listener_config" path="/test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="54978889-dcb3-418b-b187-72af83ce1cfa" message="start flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="85ad6f05-3bff-41b6-a9f3-7ee268e00f7b" />
+		<try doc:name="Try" doc:id="167e94d2-d5b4-4b3b-bdb2-ed5d4250de3a" >
+			<logger level="INFO" doc:name="Logger" doc:id="357a5250-5f0e-40ce-aa7e-97a0077a754c" />
+			<validation:is-null doc:id="ff6c05d9-6d55-40eb-8f09-41ffc07d3ec5" value="#[payload]" />
+			<logger level="INFO" doc:name="Logger" doc:id="729aee67-fc03-48c2-970e-67a368b718fe" />
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="0dfd5e77-f1eb-4af9-987b-728bdf9d34e4" >
+					<logger level="INFO" doc:name="Logger" doc:id="d16c551f-f9d3-45d8-9f24-6f77845b4866" />
+					<set-payload value="hussain" doc:name="Set Payload" doc:id="24a4e8f1-8fcc-4a45-8d66-927a5cf81558" />
+					<logger level="INFO" doc:name="Logger" doc:id="c434f2e5-dd24-4bdc-9b9d-82cf3dc30b0d" />
+				</on-error-continue>
+			</error-handler>
+		</try>
+		<set-payload value="life is not easy" doc:name="Set Payload" doc:id="c0e9b01b-da7b-465b-9404-608de4adcad0" />
+		<logger level="INFO" doc:name="Logger" doc:id="86885e11-466d-4f4c-b697-2d03f828dc5f" />
+		<set-payload value="alhamdulillah for everything" doc:name="Set Payload" doc:id="44b22657-520d-4a9f-8bac-7a9c38611727" />
+		<logger level="INFO" doc:name="Logger" doc:id="61eaedd8-808c-4951-b8a0-0f54af6df273" />
+	</flow>
+</mule>
